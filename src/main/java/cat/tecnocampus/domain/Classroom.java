@@ -6,6 +6,10 @@ public class Classroom {
     private String orientation;
     private boolean plugs;
 
+    public Classroom() {
+
+    }
+
     public Classroom(ClassroomBuilder builder) {
         name = builder.name;
         capacity = builder.capacity;

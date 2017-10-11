@@ -2,6 +2,7 @@ package cat.tecnocampus.persintence;
 
 import cat.tecnocampus.domain.Classroom;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -29,12 +30,14 @@ public class ClassroomDAO {
                 .build();
     };
 
+
     public ClassroomDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     public List<Classroom> findAll() {
-        return jdbcTemplate.query(FIND_ALL, mapper);
+        //instead of using the rowMapper it uses the BeanPropertyRowMapper to fo it authomatically
+        return jdbcTemplate.query(FIND_ALL, new BeanPropertyRowMapper<>(Classroom.class));
     }
 
     public List<Classroom> findCapacityLargerThan(int capacity) {

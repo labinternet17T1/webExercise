@@ -1,17 +1,18 @@
-# JDBC exercise
+# AOP (Aspect Oriented Programming)
 
-In this repository you'll find the *pom.xml* with all the needed Spring dependencies: you'll see 
-dependencies for web, devtools and h2. You also have *schema.sql* and *data.sql* that define a 
-table of **classrooms** and insert few classrooms to the table.
+In this repository you'll find the second exercise solved. Now you need to create a Controller class that calls
+to the DAO class. Name the methods of the controller just as the names in the DAO class.
+This controller will actually do few (or no) work. It's going to be just a proxy or a facade
+to the DAO class. In a real application it would combine several DAOs and implement most of the domain rules.
 
-You need to program for storing a retrieving classrooms to the embedded H2 database. You'll 
-need to create at least the classes **Classroom** and **ClassroomDAO**. I want to be able to
- perform the following operations:
- * Insert a new classroom
- * Insert a set/list of classrooms (with the batchupdate)
- * Delete a classroom
- * Query all classrooms
- * Query the classrooms that have more or less capacity than a given one
- * Query the classrooms depending in whether they have plugs
+Once you have the controller create an Advice class for printing some log messages (as in the example seen at class). 
+Concretely you need to:
+* Create a **pointcut** for all methods (there is only one) that have a single attribute of class *Classroom*
+* Create a **pointcut** for all methods that begins with the word *find*
+* Create a **pointcut** fot the method *insertBatch*
+* Create a **before** advice for the first pointcut that logs the message *"Working with a classroom"*
+* Create a **after** advice for the second pointcut that logs the message *"Finding classrooms"*
+* Create an **around** advice for the third pointcut that logs two messages. The one before calling the method that reads 
+*before multiple insert* and the second after calling the method that reads *after multiple insert*. Note that you
+must find the way to pass the list of classrooms to the adviced method.
 
-You also need to test that your classes work properly
